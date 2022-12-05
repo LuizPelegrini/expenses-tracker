@@ -26,4 +26,9 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 1rem;
     font-weight: 400;
   }
+
+  button {
+    border: 0;
+    cursor: pointer;
+  }
 `;
