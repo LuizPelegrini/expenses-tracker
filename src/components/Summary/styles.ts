@@ -14,7 +14,7 @@ export const Container = styled.section`
 `;
 
 const COLORS_MAPPER = {
-  green: 'green-700'
+  green: 'green-700',
 } as const;
 
 interface SummaryCardProps {
@@ -22,13 +22,15 @@ interface SummaryCardProps {
 }
 
 export const SummaryCard = styled.div<SummaryCardProps>`
-  background-color: ${props => props.theme['gray-600']};
+  background-color: ${(props) => props.theme['gray-600']};
   padding: 1.5rem;
   border-radius: 6px;
 
-  ${props => props.variant && css`
-    background-color: ${props.theme[COLORS_MAPPER[props.variant]]};
-  `}
+  ${(props) =>
+    props.variant &&
+    css`
+      background-color: ${props.theme[COLORS_MAPPER[props.variant]]};
+    `}
 
   header {
     display: flex;
@@ -36,7 +38,7 @@ export const SummaryCard = styled.div<SummaryCardProps>`
     align-items: center;
 
     span {
-      color: ${props => props.theme['gray-300']};
+      color: ${(props) => props.theme['gray-300']};
       line-height: 1.6;
     }
   }

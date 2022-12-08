@@ -2,12 +2,11 @@ import * as Dialog from '@radix-ui/react-dialog';
 
 import { NewTransactionModal } from '../NewTransactionModal';
 
-import { Container, Content, NewTransactionButton } from "./styles";
+import { Container, Content, NewTransactionButton } from './styles';
 
 import logoImg from '../../assets/logo.svg';
 
-export function Header () {
-
+export function Header() {
   return (
     <Container>
       <Content>

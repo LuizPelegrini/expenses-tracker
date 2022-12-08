@@ -1,16 +1,22 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react';
 
-import { Overlay, Content, CloseButton, TransactionType, TransactionTypeButton } from './styles';
+import {
+  Overlay,
+  Content,
+  CloseButton,
+  TransactionType,
+  TransactionTypeButton,
+} from './styles';
 
-export function NewTransactionModal () {
+export function NewTransactionModal() {
   return (
     <Dialog.Portal>
       <Overlay />
       <Content>
         <Dialog.Title>New Transaction</Dialog.Title>
         <CloseButton>
-          <X size={24}/>
+          <X size={24} />
         </CloseButton>
 
         <form onSubmit={(e) => e.preventDefault()}>
@@ -33,8 +39,6 @@ export function NewTransactionModal () {
             <button type="submit">Save</button>
           </Dialog.Close>
         </form>
-
-
       </Content>
     </Dialog.Portal>
   );
