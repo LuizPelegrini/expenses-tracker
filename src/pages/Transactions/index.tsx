@@ -29,7 +29,7 @@ export function Transactions() {
                 <td width="50%">{transaction.description}</td>
                 <td>
                   <PriceHighlight variant={transaction.type}>
-                    {transaction.type === 'outcome' ? '-' : ''} $
+                    {transaction.type === 'outcome' ? '-' : ''}
                     {transaction.price}
                   </PriceHighlight>
                 </td>

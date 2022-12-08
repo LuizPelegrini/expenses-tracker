@@ -6,7 +6,21 @@ import { Container, SummaryCard } from './styles';
 export function Summary() {
   const { transactions } = useContext(TransactionsContext);
 
-  console.log(transactions);
+  const summary = transactions.reduce(
+    (acc, transaction) => {
+      if (transaction.type === 'income') {
+        acc.income += transaction.price;
+      } else {
+        acc.outcome += transaction.price;
+      }
+
+      return {
+        ...acc,
+        total: acc.income - acc.outcome,
+      };
+    },
+    { income: 0, outcome: 0, total: 0 },
+  );
 
   return (
     <Container>
@@ -15,7 +29,7 @@ export function Summary() {
           <span>Income</span>
           <ArrowCircleUp size={32} color="#00b37e" />
         </header>
-        <strong>$ 5,000.00</strong>
+        <strong>{summary.income}</strong>
       </SummaryCard>
 
       <SummaryCard>
@@ -23,7 +37,7 @@ export function Summary() {
           <span>Outcome</span>
           <ArrowCircleDown size={32} color="#f75a68" />
         </header>
-        <strong>$ 5,000.00</strong>
+        <strong>{summary.outcome}</strong>
       </SummaryCard>
 
       <SummaryCard variant="green">
@@ -31,7 +45,7 @@ export function Summary() {
           <span>Total</span>
           <CurrencyDollar size={32} color="#ffffff" />
         </header>
-        <strong>$ 5,000.00</strong>
+        <strong>{summary.total}</strong>
       </SummaryCard>
     </Container>
   );
