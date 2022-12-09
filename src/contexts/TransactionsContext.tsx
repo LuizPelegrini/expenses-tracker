@@ -4,7 +4,9 @@ import { api } from '../lib/axios';
 
 interface TransactionsContentType {
   transactions: Transaction[];
-  // addTransaction: () => void;
+  createTransaction: (
+    transaction: Omit<Transaction, 'id' | 'createdAt'>,
+  ) => Promise<void>;
   fetchTransactions: (query?: string) => Promise<void>;
 }
 
@@ -20,11 +22,28 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
   async function fetchTransactions(query?: string) {
     const { data } = await api.get<Transaction[]>('/transactions', {
       params: {
+        _sort: 'createdAt',
+        _order: 'desc',
         q: query,
       },
     });
 
     setTransactions(data);
+  }
+
+  async function createTransaction(
+    transaction: Omit<Transaction, 'id' | 'createdAt'>,
+  ) {
+    const { description, category, type, price } = transaction;
+    const { data } = await api.post<Transaction>('/transactions', {
+      description,
+      category,
+      type,
+      price,
+      createdAt: new Date(),
+    });
+
+    setTransactions((state) => [data, ...state]);
   }
 
   useEffect(() => {
@@ -36,6 +55,7 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
       value={{
         transactions,
         fetchTransactions,
+        createTransaction,
       }}
     >
       {children}
