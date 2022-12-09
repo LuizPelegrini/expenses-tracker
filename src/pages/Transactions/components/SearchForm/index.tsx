@@ -4,6 +4,8 @@ import * as zod from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { ErrorMessage, FormContainer, SubmitButton } from './styles';
+import { useContext } from 'react';
+import { TransactionsContext } from '../../../../contexts/TransactionsContext';
 
 const searchFormSchema = zod.object({
   query: zod.string().min(3, 'At least 3 characters must be provided'),
@@ -12,6 +14,7 @@ const searchFormSchema = zod.object({
 type SearchFormData = zod.infer<typeof searchFormSchema>;
 
 export function SearchForm() {
+  const { fetchTransactions } = useContext(TransactionsContext);
   const {
     register,
     handleSubmit,
@@ -21,9 +24,7 @@ export function SearchForm() {
   });
 
   async function handleSearchTransactions(data: SearchFormData) {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    console.log(data);
+    await fetchTransactions(data.query);
   }
 
   return (
