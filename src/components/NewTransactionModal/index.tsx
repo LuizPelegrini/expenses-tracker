@@ -13,6 +13,7 @@ import {
 } from './styles';
 import { TransactionsContext } from '../../contexts/TransactionsContext';
 import { useContextSelector } from 'use-context-selector';
+import { memo } from 'react';
 
 const createTransactionForm = zod.object({
   description: zod.string(),
@@ -23,7 +24,7 @@ const createTransactionForm = zod.object({
 
 type TransactionFormData = zod.infer<typeof createTransactionForm>;
 
-export function NewTransactionModal() {
+function NewTransactionModalComponent() {
   const createTransaction = useContextSelector(
     TransactionsContext,
     (context) => {
@@ -102,3 +103,5 @@ export function NewTransactionModal() {
     </Dialog.Portal>
   );
 }
+
+export const NewTransactionModal = memo(NewTransactionModalComponent);
